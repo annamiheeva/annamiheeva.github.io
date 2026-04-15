@@ -1,278 +1,152 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Голосовые боты и интеллект</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: #e2e8f0;
+      line-height: 1.6;
+    }
 
-<title>Есть ли интеллект у голосовых помощников?</title>
+    header {
+      text-align: center;
+      padding: 60px 20px;
+      background: linear-gradient(135deg, #3b82f6, #9333ea);
+      color: white;
+    }
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
 
-<style>
-:root {
-    --bg: #0F172A;
-    --bg-card: #1E293B;
-    --text-main: #F1F5F9;
-    --text-muted: #94A3B8;
-    --accent: #8B5CF6;
-    --accent-2: #22C55E;
-    --border: #334155;
-    --radius: 12px;
-}
+    header p {
+      margin-top: 10px;
+      opacity: 0.9;
+    }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 40px 20px;
+    }
 
-body {
-    font-family: 'Inter', sans-serif;
-    background: var(--bg);
-    color: var(--text-main);
-    line-height: 1.6;
-}
+    .card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 16px;
+      padding: 25px;
+      margin-bottom: 25px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      backdrop-filter: blur(10px);
+    }
 
-.container {
-    max-width: 1100px;
-    margin: auto;
-    padding: 0 20px;
-}
+    h2 {
+      color: #60a5fa;
+    }
 
-nav {
-    position: sticky;
-    top: 0;
-    background: rgba(15,23,42,0.9);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--border);
-}
+    ul {
+      padding-left: 20px;
+    }
 
-.nav-inner {
-    display: flex;
-    justify-content: space-between;
-    height: 60px;
-    align-items: center;
-}
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
 
-.logo {
-    color: var(--accent);
-    font-weight: 700;
-}
-
-.nav-links {
-    display: flex;
-    gap: 20px;
-}
-
-.nav-links a {
-    color: var(--text-muted);
-}
-
-section {
-    padding: 70px 0;
-}
-
-h1 {
-    font-size: 2.8rem;
-    margin-bottom: 20px;
-}
-
-h2 {
-    font-size: 2rem;
-    margin-bottom: 30px;
-}
-
-.hero {
-    text-align: center;
-    padding: 80px 0;
-}
-
-.lead {
-    color: var(--text-muted);
-    margin-bottom: 20px;
-}
-
-.grid {
-    display: grid;
-    gap: 20px;
-}
-
-.grid-2 {
-    grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
-}
-
-.card {
-    background: var(--bg-card);
-    padding: 20px;
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-}
-
-/* TOGGLE */
-.toggle {
-    cursor: pointer;
-    padding: 16px;
-    border-radius: 10px;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    transition: 0.2s;
-}
-
-.toggle:hover {
-    border-color: var(--accent);
-}
-
-.toggle-content {
-    display: none;
-    margin-top: 10px;
-    color: var(--text-muted);
-}
-
-.toggle.active .toggle-content {
-    display: block;
-}
-
-footer {
-    padding: 40px;
-    text-align: center;
-    border-top: 1px solid var(--border);
-    color: var(--text-muted);
-}
-</style>
+    footer {
+      text-align: center;
+      padding: 20px;
+      opacity: 0.7;
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
-
 <body>
 
-<nav>
-    <div class="container nav-inner">
-        <div class="logo">AI Voice Lab</div>
-        <div class="nav-links">
-            <a href="#definition">Интеллект</a>
-            <a href="#for">ЗА</a>
-            <a href="#against">ПРОТИВ</a>
-            <a href="#comparison">Сравнение</a>
-        </div>
-    </div>
-</nav>
-
-<header class="hero">
-    <div class="container">
-        <h1>Есть ли интеллект у голосовых помощников?</h1>
-        <p class="lead">Они звучат как люди. Но понимают ли они, что говорят?</p>
-    </div>
+<header>
+  <h1>Голосовые боты и помощники</h1>
+  <p>Есть ли у них интеллект?</p>
 </header>
 
-<section id="definition">
-    <div class="container">
-        <h2>Что такое интеллект?</h2>
-        <div class="grid grid-2">
-            <div class="card"><h3>Обучение</h3><p>Извлечение закономерностей из опыта.</p></div>
-            <div class="card"><h3>Рассуждение</h3><p>Построение причинно-следственных связей.</p></div>
-            <div class="card"><h3>Понимание</h3><p>Связь языка с реальностью.</p></div>
-            <div class="card"><h3>Цели</h3><p>Наличие собственных намерений.</p></div>
-        </div>
+<div class="container">
+
+  <div class="card">
+    <h2>Что такое интеллект?</h2>
+    <p>Интеллект — это способность понимать, обучаться, адаптироваться к новым условиям, делать выводы и применять знания для решения задач. Он включает мышление, память, восприятие и способность к абстракции.</p>
+  </div>
+
+  <div class="card">
+    <h2>Как работает голосовой помощник?</h2>
+    <p>Голосовой помощник — это система, которая обрабатывает речь пользователя и отвечает на неё. Основные этапы работы:</p>
+    <ul>
+      <li>Распознавание речи (Speech-to-Text)</li>
+      <li>Понимание смысла (Natural Language Processing)</li>
+      <li>Выбор ответа или действия</li>
+      <li>Синтез речи (Text-to-Speech)</li>
+    </ul>
+    <p>Все эти процессы выполняются с помощью алгоритмов и моделей машинного обучения.</p>
+  </div>
+
+  <div class="card">
+    <h2>Аргументы «за» интеллект голосовых ботов</h2>
+    <ul>
+      <li>Они способны понимать человеческую речь</li>
+      <li>Могут обучаться на данных</li>
+      <li>Адаптируются под пользователя</li>
+      <li>Выполняют сложные задачи и команды</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Аргументы «против»</h2>
+    <ul>
+      <li>Не обладают сознанием</li>
+      <li>Не понимают смысл так, как человек</li>
+      <li>Работают по алгоритмам</li>
+      <li>Не имеют эмоций и опыта</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Сравнение: человек vs голосовой помощник</h2>
+    <div class="grid">
+      <div>
+        <h3>Человек</h3>
+        <ul>
+          <li>Осознанное мышление</li>
+          <li>Эмоции и интуиция</li>
+          <li>Творчество</li>
+          <li>Глубокое понимание контекста</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Голосовой помощник</h3>
+        <ul>
+          <li>Алгоритмическая обработка</li>
+          <li>Нет эмоций</li>
+          <li>Работа с шаблонами</li>
+          <li>Ограниченное понимание</li>
+        </ul>
+      </div>
     </div>
-</section>
+  </div>
 
-<section id="for">
-    <div class="container">
-        <h2>Аргументы ЗА</h2>
+  <div class="card">
+    <h2>Итог</h2>
+    <p>Голосовые помощники демонстрируют признаки искусственного интеллекта, но не обладают полноценным интеллектом, как человек. Они являются мощными инструментами, но их «разум» ограничен алгоритмами и данными.</p>
+  </div>
 
-        <div class="toggle">
-            <strong>Понимание контекста</strong>
-            <div class="toggle-content">
-                Ассистенты учитывают предыдущие реплики и строят связный диалог.
-                Но это статистика, а не настоящее понимание.
-            </div>
-        </div>
-
-        <div class="toggle">
-            <strong>Креативность</strong>
-            <div class="toggle-content">
-                Могут генерировать тексты, идеи и код.
-                Это выглядит как мышление, но основано на обучении.
-            </div>
-        </div>
-
-        <div class="toggle">
-            <strong>Адаптация</strong>
-            <div class="toggle-content">
-                Подстраиваются под пользователя и стиль общения.
-            </div>
-        </div>
-
-    </div>
-</section>
-
-<section id="against">
-    <div class="container">
-        <h2>Аргументы ПРОТИВ</h2>
-
-        <div class="toggle">
-            <strong>Нет понимания</strong>
-            <div class="toggle-content">
-                Модель не знает смысл слов — только их статистические связи.
-            </div>
-        </div>
-
-        <div class="toggle">
-            <strong>Нет сознания</strong>
-            <div class="toggle-content">
-                У ИИ нет опыта, ощущений и самосознания.
-            </div>
-        </div>
-
-        <div class="toggle">
-            <strong>Ошибки (галлюцинации)</strong>
-            <div class="toggle-content">
-                Может уверенно выдавать ложную информацию.
-            </div>
-        </div>
-
-    </div>
-</section>
-
-<section id="comparison">
-    <div class="container">
-        <h2>Человек vs ИИ</h2>
-
-        <div class="grid grid-2">
-
-            <div class="card">
-                <h3>Человек</h3>
-                <ul>
-                    <li>Понимает смысл</li>
-                    <li>Имеет опыт</li>
-                    <li>Осознаёт ошибки</li>
-                    <li>Имеет цели</li>
-                </ul>
-            </div>
-
-            <div class="card">
-                <h3>ИИ</h3>
-                <ul>
-                    <li>Работает с текстом</li>
-                    <li>Нет опыта</li>
-                    <li>Не осознаёт ошибки</li>
-                    <li>Нет целей</li>
-                </ul>
-            </div>
-
-        </div>
-    </div>
-</section>
+</div>
 
 <footer>
-    AI Voice Lab © 2026
+  © 2026 | Одностраничный сайт
 </footer>
-
-<script>
-document.querySelectorAll('.toggle').forEach(el => {
-    el.addEventListener('click', () => {
-        el.classList.toggle('active');
-    });
-});
-</script>
 
 </body>
 </html>
