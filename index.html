@@ -1,152 +1,525 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Голосовые боты и интеллект</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #0f172a, #1e293b);
-      color: #e2e8f0;
-      line-height: 1.6;
-    }
-
-    header {
-      text-align: center;
-      padding: 60px 20px;
-      background: linear-gradient(135deg, #3b82f6, #9333ea);
-      color: white;
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 2.5rem;
-    }
-
-    header p {
-      margin-top: 10px;
-      opacity: 0.9;
-    }
-
-    .container {
-      max-width: 1000px;
-      margin: auto;
-      padding: 40px 20px;
-    }
-
-    .card {
-      background: rgba(255,255,255,0.05);
-      border-radius: 16px;
-      padding: 25px;
-      margin-bottom: 25px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-      backdrop-filter: blur(10px);
-    }
-
-    h2 {
-      color: #60a5fa;
-    }
-
-    ul {
-      padding-left: 20px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      opacity: 0.7;
-      font-size: 0.9rem;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Голосовые боты • Есть ли у них интеллект?</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500&amp;display=swap');
+        
+        :root {
+            --primary: #00f0ff;
+        }
+        
+        * {
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+        }
+        
+        .hero-bg {
+            background: linear-gradient(90deg, #111827, #1e2937);
+        }
+        
+        .wave {
+            animation: wave 2s linear infinite;
+        }
+        
+        @keyframes wave {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0); }
+        }
+        
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 25px 50px -12px rgb(0 240 255 / 0.15);
+        }
+        
+        .modal {
+            animation: modalPop 0.3s ease forwards;
+        }
+        
+        @keyframes modalPop {
+            0% { opacity: 0; transform: scale(0.95); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        
+        .neon-text {
+            text-shadow: 
+                0 0 10px var(--primary),
+                0 0 20px var(--primary);
+        }
+    </style>
 </head>
-<body>
+<body class="bg-[#0f172a] text-white font-sans">
+    <!-- HEADER / HERO -->
+    <header class="hero-bg relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 pt-8 pb-20">
+            <nav class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 bg-[#00f0ff] rounded-2xl flex items-center justify-center text-black text-2xl rotate-12">🤖</div>
+                    <h1 class="text-3xl font-semibold tracking-tighter" style="font-family: 'Space Grotesk', sans-serif;">VoiceMind</h1>
+                </div>
+                <div class="hidden md:flex items-center gap-8 text-sm uppercase tracking-widest">
+                    <a href="#how" class="hover:text-[#00f0ff]">Как работают</a>
+                    <a href="#intellect" class="hover:text-[#00f0ff]">Что такое интеллект</a>
+                    <a href="#debate" class="hover:text-[#00f0ff]">За и Против</a>
+                    <a href="#compare" class="hover:text-[#00f0ff]">Человек vs Бот</a>
+                </div>
+            </nav>
 
-<header>
-  <h1>Голосовые боты и помощники</h1>
-  <p>Есть ли у них интеллект?</p>
-</header>
+            <div class="mt-24 flex flex-col md:flex-row items-center gap-12">
+                <div class="flex-1">
+                    <h1 class="text-6xl md:text-7xl font-bold leading-none tracking-tighter neon-text" style="font-family: 'Space Grotesk', sans-serif;">
+                        Голосовые боты<br>и помощники<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00f0ff] to-purple-400">есть ли у них</span><br>интеллект?
+                    </h1>
+                    
+                    <p class="mt-8 text-xl text-gray-400 max-w-lg">
+                        Они шутят, помогают, запоминают тебя. Но думают ли они по-настоящему? Или просто очень убедительно притворяются?
+                    </p>
+                    
+                    <div class="mt-12">
+                        <button onclick="document.getElementById('debate').scrollIntoView({ behavior: 'smooth' })" 
+                                class="px-10 py-6 bg-[#00f0ff] hover:bg-white text-black font-semibold text-lg rounded-3xl flex items-center gap-3 shadow-2xl shadow-[#00f0ff]/50">
+                            <i class="fas fa-brain"></i>
+                            Разобраться прямо сейчас
+                        </button>
+                    </div>
+                    
+                    <div class="mt-10 flex items-center gap-8 text-sm">
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-check text-emerald-400"></i>
+                            <span>Поддерживают 120+ языков</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-check text-emerald-400"></i>
+                            <span>Миллиарды разговоров в день</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-check text-emerald-400"></i>
+                            <span>На базе GPT-4o и новейших моделей</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Анимированный визуал -->
+                <div class="flex-1 relative flex justify-center">
+                    <div class="relative w-96 h-96">
+                        <!-- Круглый "микрофон" -->
+                        <div class="absolute inset-0 bg-gradient-to-br from-[#00f0ff]/20 to-purple-500/20 rounded-[4rem] flex items-center justify-center backdrop-blur-3xl border border-white/10">
+                            <div class="w-64 h-64 bg-black/80 rounded-3xl flex flex-col items-center justify-center border border-[#00f0ff]/30 relative">
+                                <!-- Волны звука -->
+                                <div class="flex gap-1 items-end h-20 mb-8">
+                                    <div class="w-4 bg-[#00f0ff] rounded-t wave" style="animation-delay: 0ms; height: 30%"></div>
+                                    <div class="w-4 bg-[#00f0ff] rounded-t wave" style="animation-delay: 150ms; height: 70%"></div>
+                                    <div class="w-4 bg-[#00f0ff] rounded-t wave" style="animation-delay: 300ms; height: 45%"></div>
+                                    <div class="w-4 bg-[#00f0ff] rounded-t wave" style="animation-delay: 450ms; height: 85%"></div>
+                                    <div class="w-4 bg-[#00f0ff] rounded-t wave" style="animation-delay: 600ms; height: 25%"></div>
+                                </div>
+                                <div class="text-6xl mb-2">🎤</div>
+                                <p class="text-[#00f0ff] text-xl font-medium">Слушаю…</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Плавающие чипы -->
+                        <div class="absolute -top-6 -left-6 bg-white/10 backdrop-blur-xl text-xs font-mono px-4 py-2 rounded-2xl border border-white/20 flex items-center gap-2">
+                            <i class="fas fa-bolt text-yellow-400"></i>
+                            LLM 4o
+                        </div>
+                        <div class="absolute -bottom-6 -right-8 bg-white/10 backdrop-blur-xl text-xs font-mono px-4 py-2 rounded-2xl border border-white/20 flex items-center gap-2 rotate-12">
+                            <i class="fas fa-brain"></i>
+                            175 млрд параметров
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Декоративная линия -->
+        <div class="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00f0ff]/50 to-transparent"></div>
+    </header>
 
-<div class="container">
+    <!-- КАК РАБОТАЕТ ГОЛОСОВОЙ ПОМОЩНИК -->
+    <section id="how" class="max-w-7xl mx-auto px-6 py-24">
+        <div class="flex flex-col lg:flex-row gap-16 items-center">
+            <div class="lg:w-5/12">
+                <span class="px-4 py-1 bg-purple-500/10 text-purple-400 text-sm rounded-3xl">ЭТАПЫ РАБОТЫ</span>
+                <h2 class="text-5xl font-semibold tracking-tighter mt-4 leading-none">Как на самом деле<br>работает голосовой<br>помощник?</h2>
+                
+                <div class="mt-12 space-y-8">
+                    <div class="flex gap-6">
+                        <div class="shrink-0 w-12 h-12 bg-[#00f0ff]/10 text-[#00f0ff] rounded-2xl flex items-center justify-center text-3xl">🎤</div>
+                        <div>
+                            <h4 class="font-semibold text-xl">1. Распознавание речи</h4>
+                            <p class="text-gray-400">Микрофон улавливает звуковые волны твоего голоса. Система преобразует их в цифровой сигнал, выделяет отдельные звуки (фонемы), определяет слова и целые фразы, учитывая акцент, скорость речи и окружающий шум. В итоге получается точный текст запроса.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-6">
+                        <div class="shrink-0 w-12 h-12 bg-[#00f0ff]/10 text-[#00f0ff] rounded-2xl flex items-center justify-center text-3xl">🧠</div>
+                        <div>
+                            <h4 class="font-semibold text-xl">2. Понимание смысла</h4>
+                            <p class="text-gray-400">Большая языковая модель анализирует контекст, намерение и историю разговора.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-6">
+                        <div class="shrink-0 w-12 h-12 bg-[#00f0ff]/10 text-[#00f0ff] rounded-2xl flex items-center justify-center text-3xl">📚</div>
+                        <div>
+                            <h4 class="font-semibold text-xl">3. Генерация ответа</h4>
+                            <p class="text-gray-400">Модель создаёт естественный текст на основе миллиардов примеров.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-6">
+                        <div class="shrink-0 w-12 h-12 bg-[#00f0ff]/10 text-[#00f0ff] rounded-2xl flex items-center justify-center text-3xl">🔊</div>
+                        <div>
+                            <h4 class="font-semibold text-xl">4. Синтез речи</h4>
+                            <p class="text-gray-400">Система превращает текст в человеческий голос с естественными интонациями.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="lg:w-7/12 bg-gradient-to-br from-[#1e2937] to-[#111827] border border-white/10 rounded-3xl p-10 shadow-2xl">
+                <div class="bg-black/60 rounded-3xl p-8 text-sm font-mono leading-relaxed">
+                    <div class="text-[#00f0ff] mb-4">Пользователь:</div>
+                    <div class="pl-8 border-l-2 border-[#00f0ff]/30">"Привет, как погода в Москве сегодня?"</div>
+                    
+                    <div class="mt-12 text-emerald-400">→ STT →</div>
+                    <div class="mt-6 text-[#00f0ff]">LLM:</div>
+                    <div class="pl-8 border-l-2 border-emerald-400/30">"Сейчас в Москве +8°C, солнечно. Хочешь прогноз на неделю?"</div>
+                    
+                    <div class="mt-12 flex justify-end">
+                        <div class="text-xs bg-white/10 px-6 py-2 rounded-3xl flex items-center gap-2">
+                            <span class="text-emerald-400">•</span>
+                            Ответ за 0.28 секунды
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <div class="card">
-    <h2>Что такое интеллект?</h2>
-    <p>Интеллект — это способность понимать, обучаться, адаптироваться к новым условиям, делать выводы и применять знания для решения задач. Он включает мышление, память, восприятие и способность к абстракции.</p>
-  </div>
+    <!-- ОПРЕДЕЛЕНИЕ ИНТЕЛЛЕКТА -->
+    <section id="intellect" class="bg-black/40 py-24">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-16">
+                <div>
+                    <span class="px-4 py-1 bg-amber-400/10 text-amber-400 text-sm rounded-3xl">ФИЛОСОФИЯ ИИ</span>
+                    <h2 class="text-5xl font-semibold tracking-tighter mt-4">Что вообще такое<br>интеллект?</h2>
+                    <div class="mt-8 text-2xl leading-tight text-gray-300">
+                        Классическое определение:<br>
+                        <span class="text-[#00f0ff]">Способность воспринимать, понимать, запоминать, рассуждать и решать задачи в новых условиях.</span>
+                    </div>
+                    <p class="mt-10 max-w-md text-gray-400">Алан Тьюринг (1950): если машина может вести диалог так, что человек не отличит её от человека — она обладает интеллектом.</p>
+                    <div class="mt-6 text-xs uppercase tracking-widest text-gray-500">Современные ученые добавляют:</div>
+                    <ul class="mt-4 space-y-4 text-lg">
+                        <li class="flex items-start gap-3"><i class="fas fa-check-circle text-[#00f0ff] mt-1"></i>Самосознание и субъективный опыт</li>
+                        <li class="flex items-start gap-3"><i class="fas fa-check-circle text-[#00f0ff] mt-1"></i>Эмоциональный интеллект</li>
+                        <li class="flex items-start gap-3"><i class="fas fa-check-circle text-[#00f0ff] mt-1"></i>Творчество и абстрактное мышление</li>
+                        <li class="flex items-start gap-3"><i class="fas fa-check-circle text-[#00f0ff] mt-1"></i>Адаптация без предварительного обучения</li>
+                    </ul>
+                </div>
+                <div class="bg-gradient-to-br from-purple-500/10 to-transparent border border-purple-400/20 rounded-3xl p-10 flex flex-col justify-center">
+                    <div class="text-6xl mb-6">🧬</div>
+                    <p class="text-3xl leading-tight">Интеллект — это не про «знание фактов», а про способность <span class="text-purple-400">думать о том, чего ещё никогда не было</span>.</p>
+                    <div class="mt-auto pt-12 text-sm opacity-60">— Макс Тегмарк, физик и автор книги «Жизнь 3.0»</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <div class="card">
-    <h2>Как работает голосовой помощник?</h2>
-    <p>Голосовой помощник — это система, которая обрабатывает речь пользователя и отвечает на неё. Основные этапы работы:</p>
-    <ul>
-      <li>Распознавание речи (Speech-to-Text)</li>
-      <li>Понимание смысла (Natural Language Processing)</li>
-      <li>Выбор ответа или действия</li>
-      <li>Синтез речи (Text-to-Speech)</li>
-    </ul>
-    <p>Все эти процессы выполняются с помощью алгоритмов и моделей машинного обучения.</p>
-  </div>
+    <!-- ЗА И ПРОТИВ (ИНТЕРАКТИВНЫЕ КНОПКИ) -->
+    <section id="debate" class="max-w-7xl mx-auto px-6 py-24">
+        <h2 class="text-5xl font-semibold tracking-tighter text-center">За и Против: есть ли у них интеллект?</h2>
+        <p class="text-center text-gray-400 mt-4 text-xl">Нажми на плашку — и увидишь подробности</p>
+        
+        <div class="mt-16 grid md:grid-cols-2 gap-8">
+            
+            <!-- БЛОК ЗА -->
+            <div>
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="text-emerald-400 text-4xl">👍</div>
+                    <h3 class="text-4xl font-semibold tracking-tighter">Аргументы ЗА</h3>
+                </div>
+                
+                <button onclick="showModal(1)" class="card-hover w-full text-left bg-white/5 hover:bg-white/10 border border-emerald-400/30 hover:border-emerald-400 rounded-3xl p-8 mb-4 group">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <div class="uppercase text-emerald-400 text-sm tracking-widest">Аргумент №1</div>
+                            <h4 class="text-2xl font-semibold mt-2">Проходят тест Тьюринга</h4>
+                        </div>
+                        <i class="fas fa-chevron-down text-3xl text-emerald-400/50 group-hover:rotate-180"></i>
+                    </div>
+                    <p class="text-gray-400 mt-3 line-clamp-2">Люди не могут отличить ответы продвинутых моделей от человеческих.</p>
+                </button>
+                
+                <button onclick="showModal(2)" class="card-hover w-full text-left bg-white/5 hover:bg-white/10 border border-emerald-400/30 hover:border-emerald-400 rounded-3xl p-8 mb-4 group">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <div class="uppercase text-emerald-400 text-sm tracking-widest">Аргумент №2</div>
+                            <h4 class="text-2xl font-semibold mt-2">Обучаемость и адаптация</h4>
+                        </div>
+                        <i class="fas fa-chevron-down text-3xl text-emerald-400/50 group-hover:rotate-180"></i>
+                    </div>
+                    <p class="text-gray-400 mt-3 line-clamp-2">Анализируют прошлые запросы, выявляют закономерности и корректируют ответы.</p>
+                </button>
+                
+                <button onclick="showModal(3)" class="card-hover w-full text-left bg-white/5 hover:bg-white/10 border border-emerald-400/30 hover:border-emerald-400 rounded-3xl p-8 mb-4 group">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <div class="uppercase text-emerald-400 text-sm tracking-widest">Аргумент №3</div>
+                            <h4 class="text-2xl font-semibold mt-2">Работа с естественным языком (NLP)</h4>
+                        </div>
+                        <i class="fas fa-chevron-down text-3xl text-emerald-400/50 group-hover:rotate-180"></i>
+                    </div>
+                    <p class="text-gray-400 mt-3 line-clamp-2">Распознают речь с акцентом, понимают разные формулировки и контекст.</p>
+                </button>
+                
+                <button onclick="showModal(4)" class="card-hover w-full text-left bg-white/5 hover:bg-white/10 border border-emerald-400/30 hover:border-emerald-400 rounded-3xl p-8 mb-4 group">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <div class="uppercase text-emerald-400 text-sm tracking-widest">Аргумент №4</div>
+                            <h4 class="text-2xl font-semibold mt-2">Принятие решений</h4>
+                        </div>
+                        <i class="fas fa-chevron-down text-3xl text-emerald-400/50 group-hover:rotate-180"></i>
+                    </div>
+                    <p class="text-gray-400 mt-3 line-clamp-2">Анализируют варианты и выбирают оптимальное решение (маршруты, рекомендации).</p>
+                </button>
+                
+                <button onclick="showModal(5)" class="card-hover w-full text-left bg-white/5 hover:bg-white/10 border border-emerald-400/30 hover:border-emerald-400 rounded-3xl p-8 group">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <div class="uppercase text-emerald-400 text-sm tracking-widest">Аргумент №5</div>
+                            <h4 class="text-2xl font-semibold mt-2">Масштаб обработки информации</h4>
+                        </div>
+                        <i class="fas fa-chevron-down text-3xl text-emerald-400/50 group-hover:rotate-180"></i>
+                    </div>
+                    <p class="text-gray-400 mt-3 line-clamp-2">Обрабатывают миллиарды запросов и огромные базы знаний за доли секунды.</p>
+                </button>
+            </div>
+            
+            <!-- БЛОК ПРОТИВ -->
+            <div>
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="text-red-400 text-4xl">👎</div>
+                    <h3 class="text-4xl font-semibold tracking-tighter">Аргументы ПРОТИВ</h3>
+                </div>
+                
+                <button onclick="showModal(6)" class="card-hover w-full text-left bg-white/5 hover:bg-white/10 border border-red-400/30 hover:border-red-400 rounded-3xl p-8 mb-4 group">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <div class="uppercase text-red-400 text-sm tracking-widest">Аргумент №1</div>
+                            <h4 class="text-2xl font-semibold mt-2">Отсутствие сознания</h4>
+                        </div>
+                        <i class="fas fa-chevron-down text-3xl text-red-400/50 group-hover:rotate-180"></i>
+                    </div>
+                    <p class="text-gray-400 mt-3 line-clamp-2">Не знают, что они существуют. Нет внутреннего «я» и субъективного опыта.</p>
+                </button>
+                
+                <button onclick="showModal(7)" class="card-hover w-full text-left bg-white/5 hover:bg-white/10 border border-red-400/30 hover:border-red-400 rounded-3xl p-8 mb-4 group">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <div class="uppercase text-red-400 text-sm tracking-widest">Аргумент №2</div>
+                            <h4 class="text-2xl font-semibold mt-2">Отсутствие настоящего понимания</h4>
+                        </div>
+                        <i class="fas fa-chevron-down text-3xl text-red-400/50 group-hover:rotate-180"></i>
+                    </div>
+                    <p class="text-gray-400 mt-3 line-clamp-2">Предсказывают следующее слово по статистике, а не понимают смысл.</p>
+                </button>
+                
+                <button onclick="showModal(8)" class="card-hover w-full text-left bg-white/5 hover:bg-white/10 border border-red-400/30 hover:border-red-400 rounded-3xl p-8 mb-4 group">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <div class="uppercase text-red-400 text-sm tracking-widest">Аргумент №3</div>
+                            <h4 class="text-2xl font-semibold mt-2">Отсутствие эмоций</h4>
+                        </div>
+                        <i class="fas fa-chevron-down text-3xl text-red-400/50 group-hover:rotate-180"></i>
+                    </div>
+                    <p class="text-gray-400 mt-3 line-clamp-2">Не чувствуют и не переживают. Эмпатия — только имитация.</p>
+                </button>
+                
+                <button onclick="showModal(9)" class="card-hover w-full text-left bg-white/5 hover:bg-white/10 border border-red-400/30 hover:border-red-400 rounded-3xl p-8 mb-4 group">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <div class="uppercase text-red-400 text-sm tracking-widest">Аргумент №4</div>
+                            <h4 class="text-2xl font-semibold mt-2">Ограниченность и зависимость от данных</h4>
+                        </div>
+                        <i class="fas fa-chevron-down text-3xl text-red-400/50 group-hover:rotate-180"></i>
+                    </div>
+                    <p class="text-gray-400 mt-3 line-clamp-2">Не могут выйти за пределы обучающих данных и плохо справляются с совершенно новыми ситуациями.</p>
+                </button>
+                
+                <button onclick="showModal(10)" class="card-hover w-full text-left bg-white/5 hover:bg-white/10 border border-red-400/30 hover:border-red-400 rounded-3xl p-8 group">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <div class="uppercase text-red-400 text-sm tracking-widest">Аргумент №5</div>
+                            <h4 class="text-2xl font-semibold mt-2">Отсутствие самостоятельного мышления</h4>
+                        </div>
+                        <i class="fas fa-chevron-down text-3xl text-red-400/50 group-hover:rotate-180"></i>
+                    </div>
+                    <p class="text-gray-400 mt-3 line-clamp-2">Реагируют только на запрос. Не задают вопросы и не ставят собственных целей.</p>
+                </button>
+            </div>
+        </div>
+    </section>
 
-  <div class="card">
-    <h2>Аргументы «за» интеллект голосовых ботов</h2>
-    <ul>
-      <li>Они способны понимать человеческую речь</li>
-      <li>Могут обучаться на данных</li>
-      <li>Адаптируются под пользователя</li>
-      <li>Выполняют сложные задачи и команды</li>
-    </ul>
-  </div>
+    <!-- СРАВНЕНИЕ С ЧЕЛОВЕКОМ -->
+    <section id="compare" class="max-w-7xl mx-auto px-6 py-24 bg-black/60">
+        <h2 class="text-5xl font-semibold tracking-tighter text-center mb-16">Как думает голосовой помощник<br>по сравнению с человеком?</h2>
+        
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="bg-gradient-to-br from-[#00f0ff]/10 to-transparent border border-[#00f0ff]/30 rounded-3xl p-8">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="text-5xl">🧑‍🚀</div>
+                    <div>
+                        <h3 class="text-3xl font-semibold">Человек в обычном диалоге</h3>
+                        <span class="text-emerald-400">Настоящее мышление</span>
+                    </div>
+                </div>
+                <ul class="space-y-6 text-lg">
+                    <li class="flex gap-4"><span class="text-emerald-400 font-mono">01</span> Использует жизненный опыт и эмоции</li>
+                    <li class="flex gap-4"><span class="text-emerald-400 font-mono">02</span> Может внезапно придумать шутку или изменить тему</li>
+                    <li class="flex gap-4"><span class="text-emerald-400 font-mono">03</span> Понимает подтекст, иронию и скрытый смысл</li>
+                    <li class="flex gap-4"><span class="text-emerald-400 font-mono">04</span> Может размышлять в тишине и ставить себе вопросы</li>
+                    <li class="flex gap-4"><span class="text-emerald-400 font-mono">05</span> Думает даже когда молчит</li>
+                </ul>
+            </div>
+            
+            <div class="bg-gradient-to-br from-red-400/10 to-transparent border border-red-400/30 rounded-3xl p-8">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="text-5xl">🤖</div>
+                    <div>
+                        <h3 class="text-3xl font-semibold">Голосовой помощник</h3>
+                        <span class="text-red-400">Симуляция мышления</span>
+                    </div>
+                </div>
+                <ul class="space-y-6 text-lg">
+                    <li class="flex gap-4"><span class="text-red-400 font-mono">01</span> Предсказывает следующий токен по вероятностям</li>
+                    <li class="flex gap-4"><span class="text-red-400 font-mono">02</span> Может «придумать» только то, что уже видел в данных</li>
+                    <li class="flex gap-4"><span class="text-red-400 font-mono">03</span> Ирония — только если она часто встречалась в обучении</li>
+                    <li class="flex gap-4"><span class="text-red-400 font-mono">04</span> Работает только по запросу, без внутренней инициативы</li>
+                    <li class="flex gap-4"><span class="text-red-400 font-mono">05</span> «Думает» только когда получает запрос</li>
+                </ul>
+            </div>
+        </div>
+    </section>
 
-  <div class="card">
-    <h2>Аргументы «против»</h2>
-    <ul>
-      <li>Не обладают сознанием</li>
-      <li>Не понимают смысл так, как человек</li>
-      <li>Работают по алгоритмам</li>
-      <li>Не имеют эмоций и опыта</li>
-    </ul>
-  </div>
+    <!-- ИТОГ -->
+    <section class="max-w-4xl mx-auto px-6 py-24 text-center">
+        <div class="max-w-2xl mx-auto">
+            <h2 class="text-6xl font-bold tracking-tighter neon-text">Итог: Есть ли у них интеллект?</h2>
+            <div class="mt-12 text-2xl leading-relaxed text-gray-300">
+                Ответ зависит от определения:<br><br>
+                <span class="block mb-6">Если интеллект = способность решать задачи, адаптироваться и вести естественный диалог → да, в узком смысле.</span>
+                <span class="block">Если интеллект = понимание, осознанность, самостоятельное мышление и ответственность → нет, и в обозримом будущем не будет.</span>
+            </div>
+            
+            <div class="mt-12 bg-white/5 border border-white/10 rounded-3xl p-8 text-left max-w-xl mx-auto">
+                <p class="text-xl text-gray-300">Голосовые помощники — это не пробуждающиеся машины. Это математика + масштаб данных + инженерия диалога. Их сила в полезности, а не в «разуме». Задача пользователя — использовать их как инструмент, а не как собеседника с собственной волей.</p>
+            </div>
+            
+            <p class="mt-12 text-gray-500 text-sm">Сайт создан специально для тех, кто хочет понять, куда мы идём.</p>
+        </div>
+    </section>
 
-  <div class="card">
-    <h2>Сравнение: человек vs голосовой помощник</h2>
-    <div class="grid">
-      <div>
-        <h3>Человек</h3>
-        <ul>
-          <li>Осознанное мышление</li>
-          <li>Эмоции и интуиция</li>
-          <li>Творчество</li>
-          <li>Глубокое понимание контекста</li>
-        </ul>
-      </div>
-      <div>
-        <h3>Голосовой помощник</h3>
-        <ul>
-          <li>Алгоритмическая обработка</li>
-          <li>Нет эмоций</li>
-          <li>Работа с шаблонами</li>
-          <li>Ограниченное понимание</li>
-        </ul>
-      </div>
+    <!-- FOOTER -->
+    <footer class="bg-black border-t border-white/10 py-12">
+        <div class="max-w-7xl mx-auto px-6 text-center text-xs text-gray-500">
+            © 2026 VoiceMind — разговор с будущим
+        </div>
+    </footer>
+
+    <!-- МОДАЛЬНЫЕ ОКНА -->
+    <div id="modal" onclick="if(event.target === this) hideModal()" class="hidden fixed inset-0 bg-black/80 backdrop-blur-xl z-50 flex items-center justify-center">
+        <div onclick="event.stopImmediatePropagation()" class="modal bg-[#0f172a] max-w-xl w-full mx-4 rounded-3xl p-10 relative">
+            <button onclick="hideModal()" class="absolute top-6 right-6 text-3xl text-gray-400 hover:text-white">×</button>
+            
+            <div id="modal-content">
+                <!-- JS заполнит -->
+            </div>
+        </div>
     </div>
-  </div>
 
-  <div class="card">
-    <h2>Итог</h2>
-    <p>Голосовые помощники демонстрируют признаки искусственного интеллекта, но не обладают полноценным интеллектом, как человек. Они являются мощными инструментами, но их «разум» ограничен алгоритмами и данными.</p>
-  </div>
-
-</div>
-
-<footer>
-  © 2026 | Одностраничный сайт
-</footer>
-
+    <script>
+        function showModal(id) {
+            const modal = document.getElementById('modal')
+            const content = document.getElementById('modal-content')
+            
+            let html = ''
+            
+            if (id === 1) {
+                html = `
+                <div class="text-emerald-400 text-4xl mb-6">👍</div>
+                <h3 class="text-4xl font-semibold">Они проходят тест Тьюринга</h3>
+                <p class="mt-8 text-xl leading-relaxed">В слепых тестах люди не могут отличить ответы продвинутых моделей от человеческих.</p>`
+            } else if (id === 2) {
+                html = `
+                <div class="text-emerald-400 text-4xl mb-6">📈</div>
+                <h3 class="text-4xl font-semibold">Обучаемость и адаптация</h3>
+                <p class="mt-8 text-xl leading-relaxed">Одним из ключевых признаков интеллекта является способность обучаться. Голосовые помощники используют машинное обучение: анализируют прошлые запросы пользователей, выявляют закономерности, корректируют свои ответы. Алгоритмы строят вероятностные модели. Система не остаётся статичной — её поведение меняется со временем. Это соответствует базовому уровню интеллекта — обучению на опыте.</p>`
+            } else if (id === 3) {
+                html = `
+                <div class="text-emerald-400 text-4xl mb-6">🗣️</div>
+                <h3 class="text-4xl font-semibold">Работа с естественным языком (NLP)</h3>
+                <p class="mt-8 text-xl leading-relaxed">Язык — одна из самых сложных когнитивных функций человека. Голосовые помощники умеют: распознавать речь (даже с акцентом), понимать разные формулировки одной мысли, учитывать контекст диалога. Системы анализируют синтаксис, семантику и контекст. Пример: «Поставь будильник на 7» → «А на завтра?» — система понимает, что речь о том же будильнике. Это создаёт иллюзию понимания и приближает систему к человеческому мышлению.</p>`
+            } else if (id === 4) {
+                html = `
+                <div class="text-emerald-400 text-4xl mb-6">⚖️</div>
+                <h3 class="text-4xl font-semibold">Принятие решений</h3>
+                <p class="mt-8 text-xl leading-relaxed">Интеллект связан со способностью выбирать оптимальное действие. Голосовые помощники анализируют несколько вариантов, используют данные (время, местоположение, предпочтения) и выдают наиболее подходящий результат. Пример: при построении маршрута учитываются пробки, скорость и расстояние. Это аналог рационального выбора, характерного для интеллекта.</p>`
+            } else if (id === 5) {
+                html = `
+                <div class="text-emerald-400 text-4xl mb-6">🌐</div>
+                <h3 class="text-4xl font-semibold">Масштаб обработки информации</h3>
+                <p class="mt-8 text-xl leading-relaxed">Человеческий мозг ограничен. Голосовые помощники обрабатывают миллиарды запросов, используют огромные базы знаний и делают это за доли секунды. Скорость реакции и способность работать с большими данными — признак развитого анализа. В этом аспекте они даже превосходят человека.</p>`
+            } else if (id === 6) {
+                html = `
+                <div class="text-red-400 text-4xl mb-6">👎</div>
+                <h3 class="text-4xl font-semibold">Отсутствие сознания</h3>
+                <p class="mt-8 text-xl leading-relaxed">Сознание — это осознание себя, понимание своего существования и наличие внутреннего опыта. Голосовые помощники не знают, что они существуют, не имеют субъективного опыта и не «переживают» информацию. Все их действия — это вход → обработка → выход. Без внутреннего «я» говорить о полноценном интеллекте сложно.</p>`
+            } else if (id === 7) {
+                html = `
+                <div class="text-red-400 text-4xl mb-6">🔍</div>
+                <h3 class="text-4xl font-semibold">Отсутствие настоящего понимания</h3>
+                <p class="mt-8 text-xl leading-relaxed">Главная проблема — они не понимают смысл, а лишь обрабатывают данные. Слова переводятся в числовые представления, система ищет наиболее вероятный ответ. Результат — статистически правильный, но не осмысленный. Возможны логические ошибки и непонимание сложных вопросов. Это называют «поверхностным интеллектом».</p>`
+            } else if (id === 8) {
+                html = `
+                <div class="text-red-400 text-4xl mb-6">💔</div>
+                <h3 class="text-4xl font-semibold">Отсутствие эмоций</h3>
+                <p class="mt-8 text-xl leading-relaxed">Эмоции играют важную роль в человеческом интеллекте: влияют на решения, формируют мотивацию, помогают понимать других. Голосовые помощники не чувствуют, не переживают и не имеют эмпатии. Даже если они говорят «я рад помочь» — это просто шаблон. Без эмоций интеллект считается неполным.</p>`
+            } else if (id === 9) {
+                html = `
+                <div class="text-red-400 text-4xl mb-6">📦</div>
+                <h3 class="text-4xl font-semibold">Ограниченность и зависимость от данных</h3>
+                <p class="mt-8 text-xl leading-relaxed">Голосовые помощники зависят от обучающих данных и не могут выйти за их пределы. Плохо справляются с новыми ситуациями. Если система не обучалась на определённой теме — она либо ошибётся, либо даст общий ответ. Человек же может делать выводы и применять знания в новых условиях.</p>`
+            } else if (id === 10) {
+                html = `
+                <div class="text-red-400 text-4xl mb-6">🧩</div>
+                <h3 class="text-4xl font-semibold">Отсутствие самостоятельного мышления</h3>
+                <p class="mt-8 text-xl leading-relaxed">Человек задаёт вопросы, размышляет, строит гипотезы. Голосовой помощник реагирует только на запрос, не проявляет инициативу и не формирует собственных целей. Ключевое отличие: нет внутреннего процесса мышления — только реакция.</p>`
+            }
+            
+            content.innerHTML = html
+            modal.classList.remove('hidden')
+            modal.classList.add('flex')
+        }
+        
+        function hideModal() {
+            const modal = document.getElementById('modal')
+            modal.classList.add('hidden')
+            modal.classList.remove('flex')
+        }
+        
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('%c✅ Одностраничный сайт обновлён и готов!', 'color:#00f0ff; font-family:monospace')
+        })
+    </script>
 </body>
 </html>
