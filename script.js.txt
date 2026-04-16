@@ -1,0 +1,77 @@
+// script.js
+
+// Плавный скролл по ссылкам
+document.querySelectorAll('.scroll-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+    });
+});
+
+// Анимация появления секций
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.section-fade').forEach(section => {
+    observer.observe(section);
+});
+
+// Кнопка "Наверх"
+const toTopBtn = document.getElementById('toTop');
+window.addEventListener('scroll', () => {
+    toTopBtn.classList.toggle('hidden', window.scrollY < 500);
+});
+toTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// ====================== МОДАЛЬНЫЕ ОКНА ======================
+function showModal(id) {
+    const modal = document.getElementById('modal');
+    const content = document.getElementById('modal-content');
+    let html = '';
+
+    if (id === 1) {
+        html = `<div class="text-emerald-500 text-5xl mb-6">👍</div><h3 class="text-4xl font-semibold mb-6">Они проходят тест Тьюринга</h3><p class="text-lg leading-relaxed text-slate-600">В слепых тестах люди часто не могут отличить ответы моделей от человеческих.</p>`;
+    } else if (id === 2) {
+        html = `<div class="text-emerald-500 text-5xl mb-6">📈</div><h3 class="text-4xl font-semibold mb-6">Обучаемость и адаптация</h3><p class="text-lg leading-relaxed text-slate-600">Анализируют прошлые запросы, выявляют закономерности и корректируют ответы со временем.</p>`;
+    } else if (id === 3) {
+        html = `<div class="text-emerald-500 text-5xl mb-6">🗣️</div><h3 class="text-4xl font-semibold mb-6">Работа с естественным языком (NLP)</h3><p class="text-lg leading-relaxed text-slate-600">Распознают речь с акцентом, понимают разные формулировки и учитывают контекст диалога.</p>`;
+    } else if (id === 4) {
+        html = `<div class="text-emerald-500 text-5xl mb-6">⚖️</div><h3 class="text-4xl font-semibold mb-6">Принятие решений</h3><p class="text-lg leading-relaxed text-slate-600">Анализируют варианты и выбирают оптимальное решение.</p>`;
+    } else if (id === 5) {
+        html = `<div class="text-emerald-500 text-5xl mb-6">🌐</div><h3 class="text-4xl font-semibold mb-6">Масштаб обработки информации</h3><p class="text-lg leading-relaxed text-slate-600">Обрабатывают миллиарды запросов за доли секунды.</p>`;
+    } else if (id === 6) {
+        html = `<div class="text-red-500 text-5xl mb-6">👎</div><h3 class="text-4xl font-semibold mb-6">Отсутствие сознания</h3><p class="text-lg leading-relaxed text-slate-600">Нет внутреннего «я» и субъективного опыта.</p>`;
+    } else if (id === 7) {
+        html = `<div class="text-red-500 text-5xl mb-6">🔍</div><h3 class="text-4xl font-semibold mb-6">Отсутствие настоящего понимания</h3><p class="text-lg leading-relaxed text-slate-600">Предсказывают следующее слово по статистике, а не понимают смысл.</p>`;
+    } else if (id === 8) {
+        html = `<div class="text-red-500 text-5xl mb-6">💔</div><h3 class="text-4xl font-semibold mb-6">Отсутствие эмоций</h3><p class="text-lg leading-relaxed text-slate-600">Не чувствуют и не переживают. Эмпатия — только имитация.</p>`;
+    } else if (id === 9) {
+        html = `<div class="text-red-500 text-5xl mb-6">📦</div><h3 class="text-4xl font-semibold mb-6">Ограниченность и зависимость от данных</h3><p class="text-lg leading-relaxed text-slate-600">Не могут выйти за пределы обучающих данных.</p>`;
+    } else if (id === 10) {
+        html = `<div class="text-red-500 text-5xl mb-6">🧩</div><h3 class="text-4xl font-semibold mb-6">Отсутствие самостоятельного мышления</h3><p class="text-lg leading-relaxed text-slate-600">Реагируют только на запрос, не проявляют инициативу.</p>`;
+    }
+
+    content.innerHTML = html;
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+}
+
+function hideModal() {
+    const modal = document.getElementById('modal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+}
+
+// Закрытие по ESC
+document.addEventListener('keydown', e => {
+    if (e.key === "Escape") hideModal();
+});
+
+console.log('%c✅ Сайт полностью загружен!', 'color:#00f0ff; font-size:16px');
